@@ -1,104 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    /* CSS for styling the page */
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f5f5f5;
-      margin: 0;
-      padding: 0;
-    }
-    header {
-      background-color: #333;
-      color: white;
-      padding: 10px;
-      text-align: center;
-    }
-    footer {
-      background-color: #333;
-      color: white;
-      text-align: center;
-      padding: 10px;
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-    }
-    .photo {
-      margin: 20px;
-      padding: 20px;
-      background-color: white;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-    .heart {
-      color: #ccc;
-      cursor: pointer;
-    }
-    .heart.red {
-      color: red;
-    }
-  </style>
-  <title>Social Sphere</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Sphere</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .photo-container {
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        .like-button {
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+
+        a {
+            color: white;
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1>Social Sphere</h1>
-  </header>
-  
-  <div class="photo">
-    <img src="example.jpg" alt="Example photo">
-    <div>
-      <span class="heart">&#10084;</span>
-      <span class="like-count">0</span>
-      <span class="comment-count">0</span>
+    <header>
+        <h1>Social Sphere</h1>
+    </header>
+    
+    <div class="photo-container">
+        <img src="path_to_image.jpg" alt="Photo">
+        <div class="like-button" onclick="likePhoto()">&#x2665;</div>
+        <div class="like-count">0 Likes</div>
+        <div class="comment-count">0 Comments</div>
+        <div id="comments-section"></div>
+        <form onsubmit="addComment(event)">
+            <input type="text" id="comment-input" placeholder="Add a comment...">
+            <button type="submit">Submit</button>
+        </form>
     </div>
-    <div>
-      <textarea class="comment-box" placeholder="Add a comment..."></textarea>
-      <button class="comment-button">Comment</button>
-      <div class="comments"></div>
-    </div>
-  </div>
+    
+    <footer>
+        <p>© 2023 Social Sphere</p>
+        <a href="https://twitter.com/">Twitter</a>
+        <a href="https://www.instagram.com/">Instagram</a>
+    </footer>
 
-  <footer>
-    <p>&copy; 2023 Social Sphere</p>
-    <a href="https://twitter.com/socialsphere">Twitter</a>
-    <a href="https://instagram.com/socialsphere">Instagram</a>
-  </footer>
+    <script>
+        let likeCount = 0;
+        let commentCount = 0;
 
-  <script>
-    // JavaScript for functionality
-    const hearts = document.querySelectorAll('.heart');
-    hearts.forEach(heart => {
-      heart.addEventListener('click', function() {
-        if (heart.classList.contains('red')) {
-          heart.classList.remove('red');
-          const likeCount = heart.nextElementSibling;
-          likeCount.textContent = parseInt(likeCount.textContent) - 1;
-        } else {
-          heart.classList.add('red');
-          const likeCount = heart.nextElementSibling;
-          likeCount.textContent = parseInt(likeCount.textContent) + 1;
+        function likePhoto() {
+            likeCount++;
+            document.querySelector('.like-count').textContent = `${likeCount} Likes`;
+            document.querySelector('.like-button').style.color = 'red';
         }
-      });
-    });
 
-    const commentButtons = document.querySelectorAll('.comment-button');
-    commentButtons.forEach(button => {
-      button.addEventListener('click', function() {
-        const commentBox = button.previousElementSibling;
-        const commentsSection = button.nextElementSibling;
-        if (commentBox.value.trim() !== '') {
-          const comment = document.createElement('p');
-          comment.textContent = commentBox.value;
-          commentsSection.appendChild(comment);
-          commentBox.value = '';
-          const commentCount = commentsSection.parentElement.querySelector('.comment-count');
-          commentCount.textContent = parseInt(commentCount.textContent) + 1;
+        function addComment(event) {
+            event.preventDefault();
+            const commentInput = document.getElementById('comment-input').value;
+            document.getElementById('comments-section').innerHTML += `<div>${commentInput}</div>`;
+            commentCount++;
+            document.querySelector('.comment-count').textContent = `${commentCount} Comments`;
+            document.getElementById('comment-input').value = '';
         }
-      });
-    });
-  </script>
+    </script>
 </body>
 </html>
+
