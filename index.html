@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Social Sphere</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      padding: 20px;
+    }
+    .photo {
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      padding: 10px;
+      background-color: #fff;
+    }
+    .like-btn {
+      color: #ccc;
+      cursor: pointer;
+    }
+    .like-btn.liked {
+      color: red;
+    }
+    .comment-section {
+      margin-top: 10px;
+    }
+    .footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: #333;
+      color: #fff;
+      padding: 10px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>Welcome to Social Sphere</h1>
+
+  <div class="photo">
+    <img src="example-photo.jpg" alt="Example Photo">
+    <div class="like-section">
+      <span class="like-btn">❤️</span>
+      <span class="like-count">0</span> likes
+    </div>
+    <div class="comment-section">
+      <h3>Comments</h3>
+      <ul class="comment-list">
+        <!-- Comments will be dynamically inserted here -->
+      </ul>
+      <input type="text" id="comment-input" placeholder="Add a comment...">
+      <button onclick="addComment()">Post</button>
+    </div>
+  </div>
+
+  <div class="photo">
+    <img src="another-photo.jpg" alt="Another Photo">
+    <div class="like-section">
+      <span class="like-btn">❤️</span>
+      <span class="like-count">0</span> likes
+    </div>
+    <div class="comment-section">
+      <h3>Comments</h3>
+      <ul class="comment-list">
+        <!-- Comments will be dynamically inserted here -->
+      </ul>
+      <input type="text" id="comment-input" placeholder="Add a comment...">
+      <button onclick="addComment()">Post</button>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>© 2021 Social Sphere</p>
+    <p>Follow us on <a href="https://www.twitter.com">Twitter</a> and <a href="https://www.instagram.com">Instagram</a></p>
+  </div>
+
+  <script>
+    let likeBtns = document.querySelectorAll('.like-btn');
+
+    likeBtns.forEach(btn => {
+      btn.addEventListener('click', function() {
+        if (btn.classList.contains('liked')) {
+          btn.classList.remove('liked');
+          btn.textContent = '❤️';
+        } else {
+          btn.classList.add('liked');
+          btn.textContent = '❤️';
+        }
+      });
+    });
+
+    function addComment() {
+      let input = document.getElementById('comment-input');
+      let commentList = input.parentElement.querySelector('.comment-list');
+      let newComment = document.createElement('li');
+      newComment.textContent = input.value;
+      commentList.appendChild(newComment);
+      input.value = '';
+    }
+  </script>
+</body>
+</html>
